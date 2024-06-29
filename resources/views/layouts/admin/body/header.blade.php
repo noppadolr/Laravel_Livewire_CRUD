@@ -1,4 +1,8 @@
 <div class="navbar-custom">
+    @php
+        $id =\Illuminate\Support\Facades\Auth::user()->id;
+        $adminData = \App\Models\User::find($id);
+    @endphp
     <div class="topbar">
         <div class="topbar-menu d-flex align-items-center gap-1">
 
@@ -21,50 +25,6 @@
             <button class="button-toggle-menu">
                 <i class="mdi mdi-menu"></i>
             </button>
-
-            <!-- Dropdown Menu -->
-            <div class="dropdown d-none d-xl-block">
-                <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    Create New
-                    <i class="mdi mdi-chevron-down ms-1"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <i class="fe-briefcase me-1"></i>
-                        <span>New Projects</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <i class="fe-user me-1"></i>
-                        <span>Create Users</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <i class="fe-bar-chart-line- me-1"></i>
-                        <span>Revenue Report</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <i class="fe-settings me-1"></i>
-                        <span>Settings</span>
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <i class="fe-headphones me-1"></i>
-                        <span>Help & Support</span>
-                    </a>
-
-                </div>
-            </div>
-
-
         </div>
 
         <ul class="topbar-menu d-flex align-items-center">
@@ -86,9 +46,9 @@
             <!-- User Dropdown -->
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
+                    <img src="{{ asset($adminData->photo) }}" alt="user-image" class="rounded-circle">
                     <span class="ms-1 d-none d-md-inline-block">
-                        Geneva <i class="mdi mdi-chevron-down"></i>
+                        {{ $adminData->name }} <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
@@ -118,10 +78,14 @@
                     <div class="dropdown-divider"></div>
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-log-out"></i>
-                        <span>Logout</span>
-                    </a>
+                    <form method="post" action="{{route('logout')}}">
+                        @csrf
+                        <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="event.preventDefault();
+                                                this.closest('form').submit();" >
+                            <i class="fe-log-out"></i>
+                            <span>Logout</span>
+                        </a>
+                    </form>
 
                 </div>
             </li>

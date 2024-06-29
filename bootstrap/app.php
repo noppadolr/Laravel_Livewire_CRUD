@@ -9,8 +9,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         function(Router $router){
             $router->middleware('web')
-                // ->group(base_path('routes/web.php'));
-                // $router->middleware('web')
+                ->group(base_path('routes/web.php'));
+                $router->middleware('web')
                 ->group(base_path('routes/admin.php'));
                 // $router->middleware('web')
                 // ->group(base_path('routes/frontend.php'));
@@ -19,7 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 // $router->middleware('web')
                 // ->group(base_path('routes/admin.php'));
         },
-        web: __DIR__.'/../routes/web.php',
+        // web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )

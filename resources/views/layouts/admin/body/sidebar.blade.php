@@ -1,17 +1,20 @@
 <div class="app-menu">  
-
+    @php
+            $id =\Illuminate\Support\Facades\Auth::user()->id;
+            $adminData = \App\Models\User::find($id);
+    @endphp
     <!-- Brand Logo -->
     <div class="logo-box">
         <!-- Brand Logo Light -->
         <a href="index.html" class="logo-light">
-            <img src="assets/images/logo-light.png" alt="logo" class="logo-lg">
-            <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+            <img src="{{ asset('admin/assets/images/logo-light.png') }}" alt="logo" class="logo-lg">
+            <img src="{{ asset('admin/assets/images/logo-sm.png') }}" alt="small logo" class="logo-sm">
         </a>
 
         <!-- Brand Logo Dark -->
         <a href="index.html" class="logo-dark">
-            <img src="assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
-            <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+            <img src="{{ asset('admin/assets/images/logo-dark.png') }}" alt="dark logo" class="logo-lg">
+            <img src="{{ asset('admin/assets/images/logo-sm.png') }}" alt="small logo" class="logo-sm">
         </a>
     </div>
 
@@ -20,9 +23,9 @@
 
         <!-- User box -->
         <div class="user-box text-center">
-            <img src="assets/images/users/user-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle avatar-md">
+            <img src="{{ asset($adminData->photo) }}" alt="user-img" title="{{ $adminData->name }}" class="rounded-circle avatar-md">
             <div class="dropdown">
-                <a href="javascript: void(0);" class="dropdown-toggle h5 mb-1 d-block" data-bs-toggle="dropdown">Geneva Kennedy</a>
+                <a href="javascript: void(0);" class="dropdown-toggle h5 mb-1 d-block" data-bs-toggle="dropdown">{{ $adminData->name }}</a>
                 <div class="dropdown-menu user-pro-dropdown">
 
                     <!-- item-->
@@ -44,10 +47,14 @@
                     </a>
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-log-out me-1"></i>
-                        <span>Logout</span>
-                    </a>
+                    <form method="post" action="{{route('logout')}}">
+                        @csrf
+                        <a href="javascript:void(0);" class="dropdown-item notify-item" onclick="event.preventDefault();
+                                                this.closest('form').submit();" >
+                            <i class="fe-log-out"></i>
+                            <span>Logout</span>
+                        </a>
+                    </form>
 
                 </div>
             </div>
@@ -58,38 +65,13 @@
         <ul class="menu">
 
             <li class="menu-title">Navigation</li>
-
             <li class="menu-item">
-                <a href="#menuDashboards" data-bs-toggle="collapse" class="menu-link">
+                <a href="{{ route('admin.dashboard') }}" class="menu-link">
                     <span class="menu-icon"><i data-feather="airplay"></i></span>
-                    <span class="menu-text"> Dashboards </span>
-                    <span class="badge bg-success rounded-pill ms-auto">4</span>
+                    <span class="menu-text"> Calendar </span>
                 </a>
-                <div class="collapse" id="menuDashboards">
-                    <ul class="sub-menu">
-                        <li class="menu-item">
-                            <a href="index.html" class="menu-link">
-                                <span class="menu-text">Dashboard 1</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="dashboard-2.html" class="menu-link">
-                                <span class="menu-text">Dashboard 2</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="dashboard-3.html" class="menu-link">
-                                <span class="menu-text">Dashboard 3</span>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="dashboard-4.html" class="menu-link">
-                                <span class="menu-text">Dashboard 4</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
+
 
             <li class="menu-title">Apps</li>
 

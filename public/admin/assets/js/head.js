@@ -15,7 +15,7 @@
         theme: "light",
 
         layout: {
-            mode: "default",
+            mode: "detached",
             width: "default",
         },
 
@@ -32,7 +32,7 @@
         sidenav: {
             size: "default",
             twocolumn: "light",
-            user: false,
+            user: true,
         },
     };
 
@@ -79,7 +79,7 @@
         html.setAttribute("data-bs-theme", config.theme);
         html.setAttribute("data-layout-mode", config.layout.mode);
         html.setAttribute("data-layout-width", config.layout.width);
-        html.setAttribute("data-topbar-color", config.topbar.color);
+        html.setAttribute("data-topbar-color", "light");
         html.setAttribute("data-menu-color", config.menu.color);
         html.setAttribute("data-menu-icon", config.menu.icon);
         html.setAttribute("data-sidenav-size", config.sidenav.size);
@@ -91,7 +91,7 @@
         if (config.sidenav.user && config.sidenav.user.toString() === "true") {
             html.setAttribute("data-sidenav-user", true);
         } else {
-            html.removeAttribute("data-sidenav-user");
+            html.setAttribute("data-sidenav-user", true);
         }
     }
 
